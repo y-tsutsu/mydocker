@@ -4,7 +4,9 @@ LABEL MAINTAINER tsustu <tsutsu0928@gmail.com>
 
 EXPOSE 22 80
 
-RUN yum -y update && yum -y install openssh-server passwd && yum clean all
+RUN dnf -y update --refresh || true
+RUN dnf clean packages
+RUN dnf -y update --refresh && dnf -y install openssh-server passwd && dnf clean all
 
 COPY entrypoint.sh /entrypoint.sh
 
