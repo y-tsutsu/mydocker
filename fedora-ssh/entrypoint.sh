@@ -9,8 +9,8 @@ create_hostkeys() {
 }
 
 create_user() {
-    echo -e "root\nroot" | (passwd --stdin root)
-    echo ssh user password: root
+    echo -e "hogepiyo\nhogepiyo" | (passwd --stdin root)
+    echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 }
 
 create_rundir

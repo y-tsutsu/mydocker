@@ -6,7 +6,7 @@ EXPOSE 22 80
 
 RUN dnf -y update --refresh || true
 RUN dnf clean packages
-RUN dnf -y update --refresh && dnf -y install openssh-server passwd && dnf clean all
+RUN dnf -y update --refresh && dnf -y install openssh-server passwd cracklib-dicts && dnf clean all
 
 COPY entrypoint.sh /entrypoint.sh
 
