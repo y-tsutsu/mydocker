@@ -1,7 +1,7 @@
 # Docker build
 
 ```
-$ cd fedora-ssh
+$ cd ubuntu
 $ docker build -t IMAGE_NAME .
 ```
 
@@ -10,25 +10,20 @@ $ docker build -t IMAGE_NAME .
 -dオプションでバックグラウンド起動する．
 
 ```
-$ docker run -d --name NAME IMAGE_NAME
+$ docker run -it --name NAME IMAGE_NAME
 ```
 
 外部からアクセスする場合はport forwardを設定する．
 
 ```
-$ docker run -p 2200:22 -p 8080:80 -d --name NAME IMAGE_NAME
+$ docker run -p 2200:22 -p 8080:80 -it --name NAME IMAGE_NAME
 ```
 
 # Connect
 
-## docker exec
+## docker start & attach
 
 ```
-$ docker exec -it NAME /bin/bash
-```
-
-## ssh
-
-```
-$ ssh root@172.17.0.2
+$ docker start NAME
+$ docker attach NAME
 ```
