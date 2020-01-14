@@ -2,12 +2,15 @@ FROM ubuntu
 
 LABEL MAINTAINER tsustu <tsutsu0928@gmail.com>
 
-ENV USER user
-ENV USERPASS default
+ARG USER=user
+ARG USERPASS=default
+ARG PROXY=http://proxy.example.com:8080
+
 ENV HOME /home/${USER}
 ENV SHELL /bin/bash
-# ENV http_proxy "http://proxy.example.com:8080"
-# ENV https_proxy "https://proxy.example.com:8080"
+# ENV http_proxy ${PROXY}
+# ENV https_proxy ${PROXY}
+# ENV ftp_proxy ${PROXY}
 
 EXPOSE 22 80
 
@@ -20,6 +23,13 @@ RUN apt install -y sudo
 RUN echo "${USER}  ALL=(ALL:ALL) ALL" >> /etc/sudoers
 RUN echo "${USER}  ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN visudo -c
+
+# RUN echo export http_proxy=${PROXY} >> /root/.bashrc
+# RUN echo export https_proxy=${PROXY} >> /root/.bashrc
+# RUN echo export ftp_proxy=${PROXY} >> /root/.bashrc
+# RUN echo Acquire::http::proxy '"'${PROXY}'";' >> /etc/apt/apt.conf
+# RUN echo Acquire::https::proxy '"'${PROXY}'";' >> /etc/apt/apt.conf
+# RUN echo Acquire::ftp::proxy '"'${PROXY}'";' >> /etc/apt/apt.conf
 
 USER ${USER}
 WORKDIR ${HOME}
