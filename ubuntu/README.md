@@ -10,13 +10,13 @@ $ docker build -t <IMAGE_NAME> --build-arg USER=<USER> --build-arg USERPASS=<USE
 -dオプションでバックグラウンド起動する．
 
 ```
-$ docker run -it --name <NAME> <IMAGE_NAME>
+$ docker run -it --name <NAME> <IMAGE_NAME> /bin/bash
 ```
 
 外部からアクセスする場合はport forwardを設定する．
 
 ```
-$ docker run -p 2200:22 -p 8080:80 -it --name <NAME> <IMAGE_NAME>
+$ docker run -p 2200:22 -p 8080:80 -it --name <NAME> <IMAGE_NAME> /bin/bash
 ```
 
 # Connect
