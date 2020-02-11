@@ -2,10 +2,11 @@ FROM ubuntu
 
 LABEL MAINTAINER tsustu <tsutsu0928@gmail.com>
 
-ARG USER=user
+ARG USERNAME=user
 ARG USERPASS=default
 ARG PROXY=http://proxy.example.com:8080
 
+ENV USER ${USERNAME}
 ENV HOME /home/${USER}
 ENV SHELL /bin/bash
 # ENV http_proxy ${PROXY}
@@ -13,6 +14,8 @@ ENV SHELL /bin/bash
 # ENV ftp_proxy ${PROXY}
 
 EXPOSE 22 80
+
+SHELL ["/bin/bash", "-c"]
 
 RUN apt update && apt upgrade -y
 
@@ -45,6 +48,15 @@ RUN sudo apt install -y apt-transport-https
 RUN sudo apt update
 RUN sudo apt install -y dotnet-sdk-3.1
 
+RUN sudo apt install -y curl zip
+RUN curl -s https://get.sdkman.io | bash
+RUN source ${HOME}/.sdkman/bin/sdkman-init.sh && \
+    sdk install kotlin && \
+    sdk install java
+
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+RUN echo "source ${HOME}/.cargo/env" >> ${HOME}/.bashrc
+
 RUN sudo apt install -y sl
 RUN sudo ln -s /usr/games/sl /usr/local/bin/.
 
@@ -57,10 +69,11 @@ RUN cd /tmp && \
     make -j4 && \
     sudo make install
 
-RUN python3 -m pip install pip --upgrade
-RUN python3 -m pip install snowmachine --user
-RUN sudo ln -s ~/.local/bin/snowmachine /usr/local/bin/.
-RUN echo "export LC_ALL=C.UTF-8" >> ~/.bashrc
-RUN echo "export LANG=C.UTF-8" >> ~/.bashrc
+RUN echo "export PATH=${HOME}/.local/bin:$PATH" >> ${HOME}/.bashrc
+RUN source ${HOME}/.bashrc && \
+    python3 -m pip install pip --upgrade && \
+    python3 -m pip install snowmachine
+RUN echo "export LC_ALL=C.UTF-8" >> ${HOME}/.bashrc
+RUN echo "export LANG=C.UTF-8" >> ${HOME}/.bashrc
 
 RUN sudo sed -i "/${USER}  ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers

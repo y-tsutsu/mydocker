@@ -2,7 +2,7 @@
 
 ```
 $ cd ubuntu
-$ docker build -t <IMAGE_NAME> --build-arg USER=<USER> --build-arg USERPASS=<USERPASS> --build-arg PROXY=<PROXY> .
+$ docker build -t <IMAGE_NAME> --build-arg USERNAME=<USERNAME> --build-arg USERPASS=<USERPASS> --build-arg PROXY=<PROXY> .
 ```
 
 # Docker run
