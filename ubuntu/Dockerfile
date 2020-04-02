@@ -75,5 +75,8 @@ RUN source ${HOME}/.bashrc && \
     python3 -m pip install snowmachine
 RUN echo "export LC_ALL=C.UTF-8" >> ${HOME}/.bashrc
 RUN echo "export LANG=C.UTF-8" >> ${HOME}/.bashrc
+RUN echo "export PS1=\"\n\[\033[35m\]\$(date)\n\[\033[32m\]\w\n\[\033[1;31m\]\u@\h: \[\033[1;34m\]\$(tty | sed -e 's:/dev/::'):"\
+    "\[\033[1;36m\]\$(ls -1 | wc -l | sed 's: ::g') files \[\033[1;33m\]\$(ls -lah | grep -m 1 total | sed 's/total //')b\[\033[0m\] -> \[\033[0m\]\"" \
+    >> ${HOME}/.bashrc
 
 RUN sudo sed -i "/${USER}  ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
