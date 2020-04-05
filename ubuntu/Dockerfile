@@ -47,7 +47,7 @@ RUN sudo update-locale LANG=ja_JP.UTF8
 RUN sudo apt install -y tzdata
 RUN echo "export LANG=ja_JP.UTF-8" >> ${HOME}/.bashrc
 
-RUN sudo apt install -y build-essential vim nano python3 python3-pip golang-go nodejs npm git cmake wget
+RUN sudo apt install -y build-essential vim nano python3 python3-pip ruby golang-go nodejs npm git cmake wget
 RUN cd /tmp && \
     wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     sudo dpkg -i packages-microsoft-prod.deb
