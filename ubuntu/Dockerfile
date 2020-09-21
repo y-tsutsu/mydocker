@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 LABEL MAINTAINER tsustu <tsutsu0928@gmail.com>
 
@@ -49,7 +49,7 @@ RUN echo "export LANG=ja_JP.UTF-8" >> ${HOME}/.bashrc
 
 RUN sudo apt install -y build-essential vim nano python3 python3-pip ruby golang-go nodejs npm git cmake wget
 RUN cd /tmp && \
-    wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+    wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     sudo dpkg -i packages-microsoft-prod.deb
 RUN sudo apt install -y software-properties-common
 RUN sudo add-apt-repository universe
@@ -62,7 +62,7 @@ RUN sudo apt install -y curl zip
 RUN curl -s https://get.sdkman.io | bash
 RUN source ${HOME}/.sdkman/bin/sdkman-init.sh && \
     sdk install kotlin && \
-    sdk install java 11.0.7.hs-adpt
+    sdk install java
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 RUN echo "source ${HOME}/.cargo/env" >> ${HOME}/.bashrc
