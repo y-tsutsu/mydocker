@@ -62,7 +62,7 @@ RUN sudo apt install -y curl zip
 RUN curl -s https://get.sdkman.io | bash
 RUN source ${HOME}/.sdkman/bin/sdkman-init.sh && \
     sdk install kotlin && \
-    sdk install java
+    sdk install java 11.0.9.hs-adpt
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 RUN echo "source ${HOME}/.cargo/env" >> ${HOME}/.bashrc
